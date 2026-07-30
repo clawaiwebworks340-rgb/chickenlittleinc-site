@@ -221,8 +221,9 @@
   wireUpload('resumeFile', 'resumeFileCount');
 
   /* ---------- FORM SUBMITS (emails the business) ---------- */
-  // Quotes & messages are emailed here via FormSubmit (no backend needed).
+  // Delivered via FormSubmit.co — works on static hosting (GitHub Pages), no backend needed.
   const QUOTE_EMAIL = 'chicken4littleserv@gmail.com';
+  const MAX_UPLOAD = 10 * 1024 * 1024; // FormSubmit caps total attachments at 10MB
 
   const wireForm = (formId, msg, subject) => {
     const f = document.getElementById(formId);
@@ -231,12 +232,26 @@
       e.preventDefault();
       const btn = f.querySelector('button[type="submit"]');
       const orig = btn.textContent;
+
+      let totalBytes = 0;
+      $$('input[type="file"]', f).forEach(inp =>
+        Array.from(inp.files || []).forEach(file => { totalBytes += file.size; })
+      );
+      if (totalBytes > MAX_UPLOAD) {
+        btn.textContent = 'Files too big — 10MB max';
+        setTimeout(() => { btn.textContent = orig; }, 3600);
+        return;
+      }
+
       btn.textContent = 'Sending…';
       btn.disabled = true;
 
       try {
-        // Submit to Netlify Forms (multipart so file uploads + all fields are captured)
-        const res = await fetch('/', { method: 'POST', body: new FormData(f) });
+        const res = await fetch(`https://formsubmit.co/ajax/${QUOTE_EMAIL}`, {
+          method: 'POST',
+          headers: { Accept: 'application/json' },
+          body: new FormData(f)
+        });
         if (!res.ok) throw new Error('bad status');
         btn.textContent = msg;
         btn.style.background = 'var(--gold-soft)';
@@ -245,7 +260,7 @@
         // Fallback: open the visitor's email client pre-filled to the business
         const lines = [];
         new FormData(f).forEach((v, k) => {
-          if (!(v instanceof File) && k !== 'form-name' && k !== 'bot-field') lines.push(`${k}: ${v}`);
+          if (!(v instanceof File) && !k.startsWith('_')) lines.push(`${k}: ${v}`);
         });
         window.location.href =
           `mailto:${QUOTE_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join('\n'))}`;
