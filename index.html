@@ -896,6 +896,63 @@
     <label><span>Tell us about yourself &amp; your experience</span>
       <textarea name="message" rows="4" required placeholder="What kind of work have you done? Why do you want to join the team?"></textarea>
     </label>
+
+    <!-- Pre-Interview Questions -->
+    <div class="form-divider">
+      <span class="eyebrow">Pre-Interview Questions</span>
+      <p class="micro">Answer these now so we can fast-track your interview. Takes 60 seconds.</p>
+    </div>
+    <div class="est-row">
+      <label><span>Do you have a valid driver's license?</span>
+        <select name="drivers_license" required>
+          <option value="">Select…</option>
+          <option>Yes</option>
+          <option>No</option>
+        </select>
+      </label>
+      <label><span>Can you lift 50+ lbs &amp; work on your feet all day?</span>
+        <select name="physical_work" required>
+          <option value="">Select…</option>
+          <option>Yes</option>
+          <option>No</option>
+        </select>
+      </label>
+    </div>
+    <div class="est-row">
+      <label><span>Water damage is 24/7 — available for emergency calls?</span>
+        <select name="emergency_availability" required>
+          <option value="">Select…</option>
+          <option>Yes — nights &amp; weekends OK</option>
+          <option>Sometimes — depends on schedule</option>
+          <option>No — daytime only</option>
+        </select>
+      </label>
+      <label><span>When can you start?</span>
+        <select name="start_date" required>
+          <option value="">Select…</option>
+          <option>Immediately</option>
+          <option>Within 2 weeks</option>
+          <option>Within a month</option>
+          <option>Just exploring for now</option>
+        </select>
+      </label>
+    </div>
+    <div class="est-row">
+      <label><span>Do you have your own hand tools?</span>
+        <select name="own_tools" required>
+          <option value="">Select…</option>
+          <option>Yes — full set</option>
+          <option>Some basics</option>
+          <option>No</option>
+        </select>
+      </label>
+      <label><span>What city do you live in?</span>
+        <input type="text" name="city" required placeholder="e.g. Norwalk, Anaheim, Riverside" />
+      </label>
+    </div>
+    <label><span>Describe a job you're proud of — what did you do &amp; how did it turn out?</span>
+      <textarea name="proud_job" rows="3" required placeholder="Any trade counts — flooring, paint, demo, cleanup. Tell us what YOU did."></textarea>
+    </label>
     <label class="upload">
       <span>Upload Resume (optional)</span>
       <input type="file" name="resume" accept=".pdf,.doc,.docx,image/*" id="resumeFile" />
