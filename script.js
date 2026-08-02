@@ -222,7 +222,7 @@
 
   /* ---------- FORM SUBMITS (emails the business) ---------- */
   // Delivered via FormSubmit.co — works on static hosting (GitHub Pages), no backend needed.
-  const QUOTE_EMAIL = 'chicken4littleserv@gmail.com';
+  const QUOTE_EMAIL = 'info@chickenlittleservices.company';
   const MAX_UPLOAD = 10 * 1024 * 1024; // FormSubmit caps total attachments at 10MB
 
   const wireForm = (formId, msg, subject) => {
